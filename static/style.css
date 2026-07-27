@@ -3,58 +3,191 @@ body {
     font-family: sans-serif;
     background-color: #f4f7f6;
     color: #333;
-    max-width: 600px;
+    max-width: 650px;
     margin: 40px auto;
     padding: 20px;
+}
+
+/* アプリ全体のカードコンテナ */
+.app-container {
     background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* ヘッダーと余白の調整 */
+.app-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.app-icon {
+    font-size: 28px;
 }
 
 h1 {
-    text-align: center;
+    margin: 0;
     color: #2c3e50;
+    font-size: 24px;
 }
 
-/* 入力エリア */
-.todo-input-area {
+/* 入力画面を囲むカード */
+.todo-input-card {
+    background-color: #f9fbfb;
+    border: 1px solid #e1e8e8;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 25px;
     display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
+    flex-direction: column;
+    gap: 12px;
 }
 
-#todoInput {
-    flex: 1;
-    padding: 10px;
+.input-row input {
+    width: 100%;
+    padding: 12px;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.input-details-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.input-details-row select,
+.date-group input {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+.date-group {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    color: #555;
 }
 
 #addBtn {
-    padding: 10px 20px;
+    padding: 12px;
     font-size: 16px;
     background-color: #27ae60;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s;
 }
 
 #addBtn:hover {
     background-color: #219653;
 }
 
-/* リスト部分 */
+/* リスト部分（一覧を見やすく工夫） */
 #todoList {
     list-style: none;
     padding: 0;
+    margin: 0;
 }
 
 #todoList li {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px;
-    border-bottom: 1px solid #eee;
+    padding: 16px;
+    margin-bottom: 12px;
+    background: #fafbfc;
+    border: 1px solid #eef2f2;
+    border-left: 5px solid #3498db;
+    border-radius: 6px;
+    transition: transform 0.1s ease;
+}
+
+#todoList li:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* タスク情報の見た目 */
+.task-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.task-main-text {
+    font-size: 16px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.task-sub-info {
+    font-size: 13px;
+    color: #7f8c8d;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+/* バッジ風のジャンル・優先度表示 */
+.badge-genre {
+    background-color: #e8f4fd;
+    color: #2980b9;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+.badge-priority-high {
+    color: #e74c3c;
+    font-weight: bold;
+}
+.badge-priority-mid {
+    color: #e67e22;
+    font-weight: bold;
+}
+.badge-priority-low {
+    color: #27ae60;
+    font-weight: bold;
+}
+
+/* ボタンまわり */
+.task-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.task-buttons button {
+    padding: 8px 14px;
+    font-size: 13px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.edit-btn {
+    background-color: #f39c12;
+    color: white;
+}
+.edit-btn:hover {
+    background-color: #d68910;
+}
+
+.delete-btn {
+    background-color: #e74c3c;
+    color: white;
+}
+.delete-btn:hover {
+    background-color: #c0392b;
 }

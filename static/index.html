@@ -4,24 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My TODO App</title>
-    <!-- ★この1行を追加する -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <h1>My Tasks</h1>
+    <div class="app-container">
+        <!-- ヘッダー部分 -->
+        <header class="app-header">
+            <span class="app-icon">📝</span>
+            <h1>My Tasks</h1>
+        </header>
 
-    <!-- 入力エリア -->
-    <div class="todo-input-area">
-        <input type="text" id="todoInput" placeholder="新しいタスクを入力...">
-        <button id="addBtn">追加</button>
+        <!-- 入力エリア（カード） -->
+        <div class="todo-input-card">
+            <div class="input-row">
+                <input type="text" id="todoInput" placeholder="新しいタスクを入力...">
+            </div>
+            
+            <div class="input-details-row">
+                <!-- ジャンル選択 -->
+                <select id="genreSelect">
+                    <option value="仕事">仕事</option>
+                    <option value="プライベート">プライベート</option>
+                    <option value="学習">学習</option>
+                    <option value="その他">その他</option>
+                </select>
+
+                <!-- 優先度選択 -->
+                <select id="prioritySelect">
+                    <option value="高">優先度: 高</option>
+                    <option value="中" selected>優先度: 中</option>
+                    <option value="低">優先度: 低</option>
+                </select>
+
+                <!-- 予定日 -->
+                <div class="date-group">
+                    <label>予定: <input type="date" id="dueDateInput"></label>
+                </div>
+            </div>
+
+            <button id="addBtn">タスクを追加</button>
+        </div>
+
+        <!-- TODOリスト一覧が表示される場所 -->
+        <ul id="todoList">
+            <!-- ここにJavaScriptでタスクが追加されていきます -->
+        </ul>
     </div>
 
-    <!-- TODOリスト一覧が表示される場所 -->
-    <ul id="todoList">
-        <!-- ここにJavaScriptでタスクが追加されていきます -->
-    </ul>
-    <!-- ★この1行を追加する -->
     <script src="main.js"></script>
 </body>
 </html>
