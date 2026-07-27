@@ -118,11 +118,13 @@ h1 {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-/* タスク情報の見た目 */
+/* タスク情報の見た目（通常時） */
 .task-info {
     display: flex;
     flex-direction: column;
     gap: 6px;
+    flex-grow: 1;
+    margin-right: 15px;
 }
 
 .task-main-text {
@@ -137,6 +139,40 @@ h1 {
     display: flex;
     gap: 12px;
     align-items: center;
+    flex-wrap: wrap;
+}
+
+/* カード丸ごと一括編集用フォームのスタイル */
+.edit-form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    margin-right: 15px;
+}
+
+.edit-input-main {
+    width: 100%;
+    padding: 10px;
+    font-size: 15px;
+    border: 1px solid #3498db;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.edit-input-sub {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.edit-input-sub select,
+.edit-input-sub input {
+    padding: 8px;
+    font-size: 13px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
 }
 
 /* バッジ風のジャンル・優先度表示 */
@@ -165,6 +201,7 @@ h1 {
 .task-buttons {
     display: flex;
     gap: 8px;
+    flex-shrink: 0;
 }
 
 .task-buttons button {
@@ -182,6 +219,14 @@ h1 {
 }
 .edit-btn:hover {
     background-color: #d68910;
+}
+
+.save-btn {
+    background-color: #27ae60;
+    color: white;
+}
+.save-btn:hover {
+    background-color: #219653;
 }
 
 .delete-btn {
