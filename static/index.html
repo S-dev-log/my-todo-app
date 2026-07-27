@@ -24,10 +24,10 @@
             <div class="input-details-row">
                 <!-- ジャンル選択 -->
                 <select id="genreSelect">
-                    <option value="仕事">仕事</option>
-                    <option value="プライベート">プライベート</option>
-                    <option value="学習">学習</option>
-                    <option value="その他">その他</option>
+                    <option value="仕事">💼 仕事</option>
+                    <option value="プライベート">🏠 プライベート</option>
+                    <option value="学習">📚 学習</option>
+                    <option value="その他">📌 その他</option>
                 </select>
 
                 <!-- 優先度選択 -->
@@ -36,10 +36,27 @@
                     <option value="中" selected>優先度: 中</option>
                     <option value="低">優先度: 低</option>
                 </select>
+            </div>
 
-                <!-- 予定日 -->
+            <!-- 日付管理エリア -->
+            <div class="input-dates-section">
                 <div class="date-group">
-                    <label>予定: <input type="date" id="dueDateInput"></label>
+                    <label>開始日: <input type="date" id="startDateInput"></label>
+                </div>
+                <div class="date-group">
+                    <label>完了予定日: <input type="date" id="targetDateInput"></label>
+                </div>
+                <div class="date-group">
+                    <label>締め切り日: <input type="date" id="deadlineDateInput"></label>
+                </div>
+            </div>
+
+            <!-- リマインド設定エリア -->
+            <div class="input-remind-section">
+                <span class="section-label">⏰ リマインド設定（締め切り前）</span>
+                <div class="remind-inputs">
+                    <label>1回目: <input type="number" id="remind1Input" min="0" placeholder="例: 3" style="width: 50px;"> 日前</label>
+                    <label>2回目: <input type="number" id="remind2Input" min="0" placeholder="例: 1" style="width: 50px;"> 日前</label>
                 </div>
             </div>
 

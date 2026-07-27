@@ -3,7 +3,7 @@ body {
     font-family: sans-serif;
     background-color: #f4f7f6;
     color: #333;
-    max-width: 650px;
+    max-width: 700px;
     margin: 40px auto;
     padding: 20px;
 }
@@ -63,7 +63,8 @@ h1 {
 }
 
 .input-details-row select,
-.date-group input {
+.edit-input-sub select,
+.edit-input-sub input {
     padding: 8px;
     font-size: 14px;
     border: 1px solid #ccc;
@@ -71,11 +72,53 @@ h1 {
     background-color: #fff;
 }
 
+/* 日付セクションとリマインドセクションのスタイル */
+.input-dates-section,
+.edit-dates-section {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    background: #f0f4f4;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.input-remind-section,
+.edit-remind-section {
+    background: #eef5f5;
+    padding: 10px;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.section-label {
+    font-size: 12px;
+    font-weight: bold;
+    color: #555;
+}
+
+.remind-inputs {
+    display: flex;
+    gap: 15px;
+    font-size: 13px;
+    color: #555;
+}
+
 .date-group {
-    font-size: 14px;
+    font-size: 13px;
     display: flex;
     align-items: center;
     color: #555;
+}
+
+.date-group input {
+    padding: 6px;
+    font-size: 13px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
 }
 
 #addBtn {
@@ -94,7 +137,7 @@ h1 {
     background-color: #219653;
 }
 
-/* リスト部分（一覧を見やすく工夫） */
+/* リスト部分 */
 #todoList {
     list-style: none;
     padding: 0;
@@ -104,7 +147,7 @@ h1 {
 #todoList li {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     padding: 16px;
     margin-bottom: 12px;
     background: #fafbfc;
@@ -112,10 +155,6 @@ h1 {
     border-left: 5px solid #3498db;
     border-radius: 6px;
     transition: transform 0.1s ease;
-}
-
-#todoList li:hover {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 /* タスク情報の見た目（通常時） */
@@ -134,15 +173,15 @@ h1 {
 }
 
 .task-sub-info {
-    font-size: 13px;
+    font-size: 12px;
     color: #7f8c8d;
     display: flex;
-    gap: 12px;
+    gap: 10px;
     align-items: center;
     flex-wrap: wrap;
 }
 
-/* カード丸ごと一括編集用フォームのスタイル */
+/* 編集用フォームのスタイル */
 .edit-form-container {
     display: flex;
     flex-direction: column;
@@ -166,15 +205,6 @@ h1 {
     flex-wrap: wrap;
 }
 
-.edit-input-sub select,
-.edit-input-sub input {
-    padding: 8px;
-    font-size: 13px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #fff;
-}
-
 /* バッジ風のジャンル・優先度表示 */
 .badge-genre {
     background-color: #e8f4fd;
@@ -195,6 +225,20 @@ h1 {
 .badge-priority-low {
     color: #27ae60;
     font-weight: bold;
+}
+
+.task-dates-display {
+    color: #555;
+    background: #f1f2f6;
+    padding: 2px 6px;
+    border-radius: 3px;
+}
+
+.task-remind-display {
+    color: #e67e22;
+    background: #fdf5e6;
+    padding: 2px 6px;
+    border-radius: 3px;
 }
 
 /* ボタンまわり */

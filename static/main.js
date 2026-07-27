@@ -2,7 +2,11 @@
 const todoInput = document.getElementById('todoInput');
 const genreSelect = document.getElementById('genreSelect');
 const prioritySelect = document.getElementById('prioritySelect');
-const dueDateInput = document.getElementById('dueDateInput');
+const startDateInput = document.getElementById('startDateInput');
+const targetDateInput = document.getElementById('targetDateInput');
+const deadlineDateInput = document.getElementById('deadlineDateInput');
+const remind1Input = document.getElementById('remind1Input');
+const remind2Input = document.getElementById('remind2Input');
 const addBtn = document.getElementById('addBtn');
 const todoList = document.getElementById('todoList');
 
@@ -11,11 +15,14 @@ addBtn.addEventListener('click', function() {
     const taskText = todoInput.value.trim();
     const genre = genreSelect.value;
     const priority = prioritySelect.value;
-    const dueDate = dueDateInput.value;
+    const startDate = startDateInput.value;
+    const targetDate = targetDateInput.value;
+    const deadlineDate = deadlineDateInput.value;
+    const remind1 = remind1Input.value;
+    const remind2 = remind2Input.value;
 
     // 入力が空じゃなかったら追加する
     if (taskText !== "") {
-        // 1. li要素を作る
         const li = document.createElement('li');
 
         // タスク情報をまとめるコンテナ（通常表示用）
@@ -27,7 +34,7 @@ addBtn.addEventListener('click', function() {
         textSpan.className = 'task-main-text';
         textSpan.textContent = taskText;
 
-        // サブ情報（ジャンル・優先度・予定日）
+        // サブ情報（ジャンル・優先度・日付・リマインド）
         const subInfoDiv = document.createElement('div');
         subInfoDiv.className = 'task-sub-info';
 
@@ -44,10 +51,29 @@ addBtn.addEventListener('click', function() {
         subInfoDiv.appendChild(genreBadge);
         subInfoDiv.appendChild(priorityBadge);
 
-        const dateSpan = document.createElement('span');
-        if (dueDate) {
-            dateSpan.textContent = `予定: ${dueDate}`;
-            subInfoDiv.appendChild(dateSpan);
+        // 日付情報の表示生成
+        const datesSpan = document.createElement('span');
+        datesSpan.className = 'task-dates-display';
+        let dateTexts = [];
+        if (startDate) dateTexts.push(`開始: ${startDate}`);
+        if (targetDate) dateTexts.push(`完了予定: ${targetDate}`);
+        if (deadlineDate) dateTexts.push(`締め切り: ${deadlineDate}`);
+
+        if (dateTexts.length > 0) {
+            datesSpan.textContent = dateTexts.join(' / ');
+            subInfoDiv.appendChild(datesSpan);
+        }
+
+        // リマインド情報の表示生成
+        const remindSpan = document.createElement('span');
+        remindSpan.className = 'task-remind-display';
+        let remindTexts = [];
+        if (remind1) remindTexts.push(`通知1: ${remind1}日前`);
+        if (remind2) remindTexts.push(`通知2: ${remind2}日前`);
+
+        if (remindTexts.length > 0) {
+            remindSpan.textContent = `⏰ ${remindTexts.join(' ・ ')}`;
+            subInfoDiv.appendChild(remindSpan);
         }
 
         taskInfoDiv.appendChild(textSpan);
@@ -74,25 +100,21 @@ addBtn.addEventListener('click', function() {
             }
         });
 
-        // 「編集」ボタンが押されたときの処理（カード丸ごと一括編集）
+        // 「編集」ボタンが押されたときの処理
         editBtn.addEventListener('click', function() {
-            // 現在の表示内容から値を取得しておく
             const currentText = textSpan.textContent;
             const currentGenre = genreBadge.textContent;
             const currentPriority = priorityBadge.textContent.replace('優先度: ', '');
-            const currentDate = dateSpan.textContent ? dateSpan.textContent.replace('予定: ', '') : '';
 
-            // 1. カード内すべてを一括変更できる入力フォームコンテナを作成
+            // 1. 一括変更できる入力フォームコンテナを作成
             const editContainer = document.createElement('div');
             editContainer.className = 'edit-form-container';
 
-            // タスク名用のテキストボックス
             const editInputText = document.createElement('input');
             editInputText.type = 'text';
             editInputText.className = 'edit-input-main';
             editInputText.value = currentText;
 
-            // ジャンル・優先度・予定日をまとめるサブエリア
             const editSubDiv = document.createElement('div');
             editSubDiv.className = 'edit-input-sub';
 
@@ -116,26 +138,41 @@ addBtn.addEventListener('click', function() {
                 editPrioritySelect.appendChild(opt);
             });
 
-            // 予定日選択
-            const editDateInput = document.createElement('input');
-            editDateInput.type = 'date';
-            editDateInput.value = currentDate;
-
             editSubDiv.appendChild(editGenreSelect);
             editSubDiv.appendChild(editPrioritySelect);
-            editSubDiv.appendChild(editDateInput);
+
+            // 編集用の日付入力エリア
+            const editDatesDiv = document.createElement('div');
+            editDatesDiv.className = 'edit-dates-section';
+            editDatesDiv.innerHTML = `
+                <label>開始: <input type="date" id="editStartDate" value="${startDate || ''}"></label>
+                <label>完了予定: <input type="date" id="editTargetDate" value="${targetDate || ''}"></label>
+                <label>締め切り: <input type="date" id="editDeadlineDate" value="${deadlineDate || ''}"></label>
+            `;
+
+            // 編集用のリマインド入力エリア
+            const editRemindDiv = document.createElement('div');
+            editRemindDiv.className = 'edit-remind-section';
+            editRemindDiv.innerHTML = `
+                <span class="section-label">⏰ リマインド設定</span>
+                <div class="remind-inputs">
+                    <label>1回目: <input type="number" id="editRemind1" min="0" value="${remind1 || ''}" style="width: 50px;"> 日前</label>
+                    <label>2回目: <input type="number" id="editRemind2" min="0" value="${remind2 || ''}" style="width: 50px;"> 日前</label>
+                </div>
+            `;
 
             editContainer.appendChild(editInputText);
             editContainer.appendChild(editSubDiv);
+            editContainer.appendChild(editDatesDiv);
+            editContainer.appendChild(editRemindDiv);
 
-            // 2. 通常表示エリアを編集用フォームに丸ごと置き換える
+            // 2. 通常表示エリアを編集用フォームに置き換え
             li.replaceChild(editContainer, taskInfoDiv);
 
             // 3. ボタンを「保存」に切り替える
             editBtn.textContent = '保存';
             editBtn.className = 'edit-btn save-btn';
 
-            // イベント重複を防ぐためにクローンに置き換え
             const newEditBtn = editBtn.cloneNode(true);
             editBtn.replaceWith(newEditBtn);
 
@@ -147,7 +184,7 @@ addBtn.addEventListener('click', function() {
                     return;
                 }
 
-                // 各要素に新しい値を一括反映
+                // 新しい値を反映
                 textSpan.textContent = newText;
                 genreBadge.textContent = editGenreSelect.value;
                 
@@ -158,20 +195,39 @@ addBtn.addEventListener('click', function() {
                 else priorityBadge.className = 'badge-priority-low';
                 priorityBadge.textContent = `優先度: ${newPrio}`;
 
-                const newDate = editDateInput.value;
-                if (newDate) {
-                    dateSpan.textContent = `予定: ${newDate}`;
-                    if (!subInfoDiv.contains(dateSpan)) {
-                        subInfoDiv.appendChild(dateSpan);
-                    }
+                // 編集後の日付を取得して更新
+                const newStart = document.getElementById('editStartDate').value;
+                const newTarget = document.getElementById('editTargetDate').value;
+                const newDeadline = document.getElementById('editDeadlineDate').value;
+                const newRemind1 = document.getElementById('editRemind1').value;
+                const newRemind2 = document.getElementById('editRemind2').value;
+
+                let newDateTexts = [];
+                if (newStart) newDateTexts.push(`開始: ${newStart}`);
+                if (newTarget) newDateTexts.push(`完了予定: ${newTarget}`);
+                if (newDeadline) newDateTexts.push(`締め切り: ${newDeadline}`);
+
+                if (newDateTexts.length > 0) {
+                    datesSpan.textContent = newDateTexts.join(' / ');
+                    if (!subInfoDiv.contains(datesSpan)) subInfoDiv.appendChild(datesSpan);
                 } else {
-                    dateSpan.textContent = "";
-                    if (subInfoDiv.contains(dateSpan)) {
-                        subInfoDiv.removeChild(dateSpan);
-                    }
+                    datesSpan.textContent = "";
+                    if (subInfoDiv.contains(datesSpan)) subInfoDiv.removeChild(datesSpan);
                 }
 
-                // 4. フォームから元の通常表示に戻す
+                let newRemindTexts = [];
+                if (newRemind1) newRemindTexts.push(`通知1: ${newRemind1}日前`);
+                if (newRemind2) newRemindTexts.push(`通知2: ${newRemind2}日前`);
+
+                if (newRemindTexts.length > 0) {
+                    remindSpan.textContent = `⏰ ${newRemindTexts.join(' ・ ')}`;
+                    if (!subInfoDiv.contains(remindSpan)) subInfoDiv.appendChild(remindSpan);
+                } else {
+                    remindSpan.textContent = "";
+                    if (subInfoDiv.contains(remindSpan)) subInfoDiv.removeChild(remindSpan);
+                }
+
+                // 4. 元の通常表示に戻す
                 li.replaceChild(taskInfoDiv, editContainer);
 
                 // 5. ボタンを元の「編集」に戻す
@@ -184,11 +240,14 @@ addBtn.addEventListener('click', function() {
         btnContainer.appendChild(deleteBtn);
         li.appendChild(btnContainer);
 
-        // todoListの中にli要素を追加する
         todoList.appendChild(li);
 
         // 入力欄をリセット
         todoInput.value = "";
-        dueDateInput.value = "";
+        startDateInput.value = "";
+        targetDateInput.value = "";
+        deadlineDateInput.value = "";
+        remind1Input.value = "";
+        remind2Input.value = "";
     }
 });
